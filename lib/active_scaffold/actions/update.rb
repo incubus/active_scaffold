@@ -160,7 +160,7 @@ module ActiveScaffold::Actions
 
       value_record.send("#{@column.name}=", value)
       before_update_save(@record)
-      self.successful = value_record.save
+      self.successful = @record.errors.empty? && value_record.save
       if !successful?
         flash.now[:error] = value_record.errors.full_messages.presence
       elsif active_scaffold_config.actions.include?(:list)
